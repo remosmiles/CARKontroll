@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neon Car-Check Dashboard</title>
+    <title>Neon Car-Check Pro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #0d0d0d;
@@ -11,148 +12,106 @@
             --neon-cyan: #00f2ff;
             --neon-magenta: #ff00e5;
             --neon-green: #39ff14;
+            --neon-yellow: #f39c12;
             --text: #ffffff;
-            --shadow: 0 0 15px rgba(0, 242, 255, 0.5);
         }
 
         body {
-            font-family: 'Orbitron', sans-serif; /* Futuristisch */
+            font-family: 'Orbitron', sans-serif;
             background-color: var(--bg-color);
             color: var(--text);
             margin: 0;
             padding: 20px;
-            display: flex;
-            justify-content: center;
         }
 
         .container {
-            max-width: 1000px;
-            width: 100%;
+            max-width: 1100px;
+            margin: auto;
             background: var(--card-bg);
             padding: 30px;
             border-radius: 15px;
             border: 1px solid var(--neon-cyan);
-            box-shadow: var(--shadow);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
         }
 
-        h1 {
+        h1, h2 {
             text-align: center;
             text-transform: uppercase;
-            letter-spacing: 5px;
+            letter-spacing: 3px;
             color: var(--neon-cyan);
             text-shadow: 0 0 10px var(--neon-cyan);
-            margin-bottom: 30px;
         }
 
+        /* Formular */
         .form-section {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 30px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px dashed #444;
+            border-radius: 10px;
         }
 
-        .input-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        label {
-            font-size: 0.8em;
-            margin-bottom: 8px;
-            color: var(--neon-cyan);
-            text-transform: uppercase;
-        }
-
+        .input-group { display: flex; flex-direction: column; }
+        label { font-size: 0.75em; margin-bottom: 8px; color: var(--neon-cyan); }
         input, select {
-            background: #222;
-            border: 1px solid #444;
-            color: white;
-            padding: 12px;
-            border-radius: 5px;
-            outline: none;
-            transition: 0.3s;
+            background: #222; border: 1px solid #444; color: white;
+            padding: 12px; border-radius: 5px; outline: none;
         }
-
-        input:focus, select:focus {
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 10px var(--neon-cyan);
-        }
+        input:focus { border-color: var(--neon-cyan); box-shadow: 0 0 10px var(--neon-cyan); }
 
         .btn-add {
-            grid-column: 1 / -1;
-            background: transparent;
-            color: var(--neon-cyan);
-            border: 2px solid var(--neon-cyan);
+            grid-column: 1 / -1; background: transparent; color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan); padding: 15px; cursor: pointer;
+            text-transform: uppercase; font-weight: bold; border-radius: 5px;
+        }
+        .btn-add:hover { background: var(--neon-cyan); color: black; box-shadow: 0 0 20px var(--neon-cyan); }
+
+        /* Statistik Boxen */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid var(--neon-magenta);
+        }
+
+        .stat-card {
+            background: #222;
             padding: 15px;
-            font-weight: bold;
-            text-transform: uppercase;
-            cursor: pointer;
-            border-radius: 5px;
-            transition: 0.3s;
-            box-shadow: inset 0 0 5px var(--neon-cyan);
+            border-radius: 8px;
+            text-align: center;
+            border-left: 4px solid var(--neon-magenta);
         }
 
-        .btn-add:hover {
-            background: var(--neon-cyan);
-            color: black;
-            box-shadow: 0 0 20px var(--neon-cyan);
-        }
+        .stat-card span { display: block; font-size: 1.8em; font-weight: bold; color: var(--neon-magenta); }
+        .stat-card label { color: #aaa; font-size: 0.7em; text-transform: uppercase; }
 
-        /* Tabelle Styling */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
+        /* Tabelle */
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { color: var(--neon-cyan); border-bottom: 1px solid var(--neon-cyan); padding: 10px; text-align: left; font-size: 0.8em; }
+        td { padding: 12px; border-bottom: 1px solid #333; font-size: 0.9em; }
 
-        th {
-            border-bottom: 2px solid var(--neon-magenta);
-            color: var(--neon-magenta);
-            text-transform: uppercase;
-            padding: 15px;
-            text-align: left;
-        }
-
-        td {
-            padding: 15px;
-            border-bottom: 1px solid #333;
-        }
-
-        .badge {
-            padding: 5px 10px;
-            border-radius: 3px;
-            font-size: 0.8em;
-            font-weight: bold;
-        }
-
-        .ch { background: #555; border: 1px solid var(--neon-green); color: var(--neon-green); }
-        .eu { background: #555; border: 1px solid var(--neon-cyan); color: var(--neon-cyan); }
-        .third { background: #555; border: 1px solid var(--neon-magenta); color: var(--neon-magenta); }
-
-        .stillgelegt {
-            color: var(--neon-magenta);
-            animation: blink 1.5s infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0.3; }
-        }
-
+        .badge { padding: 3px 8px; border-radius: 3px; font-size: 0.8em; border: 1px solid; }
+        .ch { border-color: var(--neon-green); color: var(--neon-green); }
+        .eu { border-color: var(--neon-cyan); color: var(--neon-cyan); }
+        .third { border-color: var(--neon-yellow); color: var(--neon-yellow); }
+        .stillgelegt { color: var(--neon-magenta); font-weight: bold; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0.2; } }
         .hidden { display: none; }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="container">
-    <h1>Car Check System</h1>
+    <h1>Carkontrolle <span style="color:var(--neon-magenta)">Live-Log</span></h1>
     
     <div class="form-section">
         <div class="input-group">
             <label>Kennzeichen</label>
-            <input type="text" id="kz" placeholder="ZH 007">
+            <input type="text" id="kz" placeholder="z.B. BE 123">
         </div>
         <div class="input-group">
             <label>Herkunft</label>
@@ -163,93 +122,120 @@
             </select>
         </div>
         <div class="input-group">
-            <label>Insassen</label>
+            <label>Personen</label>
             <input type="number" id="personen" value="1" min="1">
         </div>
         <div class="input-group">
-            <label>Status</label>
-            <select id="status" onchange="toggleAnzeige()">
-                <option value="OK">Keine Beanstandung</option>
+            <label>Ergebnis</label>
+            <select id="status" onchange="toggleExtra()">
+                <option value="OK">OK</option>
                 <option value="Ordnungsbusse">Ordnungsbusse</option>
                 <option value="Anzeige">Anzeige</option>
             </select>
         </div>
 
-        <div id="extraFields" class="input-group hidden" style="grid-column: span 2;">
-            <div style="display: flex; gap: 20px;">
-                <div class="input-group" style="flex: 1;">
-                    <label>Grund</label>
-                    <select id="grund">
-                        <option value="Technisch">Technischer Mangel</option>
-                        <option value="Allgemein">Verkehrswiderhandlung</option>
-                    </select>
-                </div>
-                <div class="input-group" style="flex: 1;">
-                    <label>Stilllegung</label>
-                    <select id="still">
-                        <option value="Nein">Nein</option>
-                        <option value="Ja">JA - Stillgelegt</option>
-                    </select>
-                </div>
+        <div id="extraFields" class="hidden" style="grid-column: span 2; display: flex; gap: 20px;">
+            <div class="input-group" style="flex:1">
+                <label>Grund</label>
+                <select id="grund">
+                    <option value="Technisch">Technischer Mangel</option>
+                    <option value="Allgemein">Verkehrswiderhandlung</option>
+                </select>
+            </div>
+            <div class="input-group" style="flex:1">
+                <label>Stillgelegt?</label>
+                <select id="still">
+                    <option value="Nein">Nein</option>
+                    <option value="Ja">Ja</option>
+                </select>
             </div>
         </div>
 
-        <button class="btn-add" onclick="speichern()">Eintrag in Datenbank loggen</button>
+        <button class="btn-add" onclick="addEntry()">Eintrag registrieren</button>
     </div>
 
+    <h2>Protokoll</h2>
     <table>
         <thead>
             <tr>
-                <th>Fahrzeug</th>
+                <th>Kennzeichen</th>
                 <th>Herkunft</th>
                 <th>Pers.</th>
-                <th>Ergebnis</th>
                 <th>Status</th>
+                <th>Detail/Still.</th>
             </tr>
         </thead>
-        <tbody id="logBody">
-            </tbody>
+        <tbody id="logBody"></tbody>
     </table>
+
+    <h2>Live-Statistik</h2>
+    <div class="stats-grid">
+        <div class="stat-card"><label>Total Autos</label><span id="stat-total">0</span></div>
+        <div class="stat-card"><label>Total Personen</label><span id="stat-pers">0</span></div>
+        <div class="stat-card"><label>CH / EU / Dritt</label><span id="stat-origin">0/0/0</span></div>
+        <div class="stat-card"><label>Bussen (OB)</label><span id="stat-ob">0</span></div>
+        <div class="stat-card"><label>Anzeigen (Tech/Allg)</label><span id="stat-anz">0/0</span></div>
+        <div class="stat-card" style="border-left-color: var(--neon-cyan);"><label>Stillgelegt</label><span id="stat-still" style="color:var(--neon-cyan)">0</span></div>
+    </div>
 </div>
 
 <script>
-    function toggleAnzeige() {
-        const status = document.getElementById('status').value;
-        document.getElementById('extraFields').classList.toggle('hidden', status !== 'Anzeige');
+    let stats = { total: 0, pers: 0, ch: 0, eu: 0, dritt: 0, ob: 0, anzTech: 0, anzAllg: 0, still: 0 };
+
+    function toggleExtra() {
+        document.getElementById('extraFields').classList.toggle('hidden', document.getElementById('status').value !== 'Anzeige');
     }
 
-    function speichern() {
+    function addEntry() {
         const kz = document.getElementById('kz').value;
         const herkunft = document.getElementById('herkunft').value;
-        const pers = document.getElementById('personen').value;
+        const personen = parseInt(document.getElementById('personen').value);
         const status = document.getElementById('status').value;
-        
-        if(!kz) return alert("Bitte Kennzeichen eingeben!");
 
-        let info = status;
-        let stillText = "";
+        if(!kz) return alert("Kennzeichen fehlt!");
 
+        let detail = "-";
+        let stillValue = "Nein";
+
+        // Stats Update
+        stats.total++;
+        stats.pers += personen;
+        if(herkunft === 'Schweiz') stats.ch++;
+        else if(herkunft === 'EU') stats.eu++;
+        else stats.dritt++;
+
+        if(status === 'Ordnungsbusse') stats.ob++;
         if(status === 'Anzeige') {
             const grund = document.getElementById('grund').value;
-            const still = document.getElementById('still').value;
-            info = `Anzeige (${grund})`;
-            if(still === 'Ja') stillText = '<span class="stillgelegt">🚨 STILLGELEGT</span>';
+            stillValue = document.getElementById('still').value;
+            detail = grund;
+            if(grund === 'Technisch') stats.anzTech++; else stats.anzAllg++;
+            if(stillValue === 'Ja') { stats.still++; detail += " 🚨"; }
         }
 
+        // Tabelle befüllen
+        const row = document.getElementById('logBody').insertRow(0);
         const hClass = herkunft === 'Schweiz' ? 'ch' : (herkunft === 'EU' ? 'eu' : 'third');
-
-        const row = `<tr>
-            <td><strong>${kz}</strong></td>
-            <td><span class="badge ${hClass}">${herkunft}</span></td>
-            <td>${pers}</td>
-            <td>${info}</td>
-            <td>${stillText || 'Aktiv'}</td>
-        </tr>`;
-
-        document.getElementById('logBody').innerHTML = row + document.getElementById('logBody').innerHTML;
         
-        // Reset
-        document.getElementById('kz').value = "";
+        row.innerHTML = `
+            <td>${kz}</td>
+            <td><span class="badge ${hClass}">${herkunft}</span></td>
+            <td>${personen}</td>
+            <td>${status}</td>
+            <td class="${stillValue === 'Ja' ? 'stillgelegt' : ''}">${detail}</td>
+        `;
+
+        updateDashboard();
+        document.getElementById('kz').value = ""; // Reset
+    }
+
+    function updateDashboard() {
+        document.getElementById('stat-total').innerText = stats.total;
+        document.getElementById('stat-pers').innerText = stats.pers;
+        document.getElementById('stat-origin').innerText = `${stats.ch} / ${stats.eu} / ${stats.dritt}`;
+        document.getElementById('stat-ob').innerText = stats.ob;
+        document.getElementById('stat-anz').innerText = `${stats.anzTech} / ${stats.anzAllg}`;
+        document.getElementById('stat-still').innerText = stats.still;
     }
 </script>
 
